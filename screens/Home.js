@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, FlatList} from 'react-native'
+import { Text, StyleSheet, View, FlatList, Modal, TouchableOpacity} from 'react-native'
 
 export default class Home extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            posts: []
+            posts: [],
+            selectedPost: null,
         }
     }
   render() {
@@ -13,9 +14,23 @@ export default class Home extends Component {
         <FlatList 
             data = {this.state.posts}
             renderItem = {({item}) => <View style = {styles.wrapper}>
-                <Text style = {styles.title}>{item.title}</Text>
-                <Text style = {styles.body}>{item.body}</Text>
-                <Text style = {styles.userId}> Author ID: {item.userId}</Text>
+                <TouchableOpacity style = {styles.title}
+                    onPress = {() => this.setState({selectedPost: item})}
+                >
+                    {item.title}
+                    <Text style = {styles.userId}>Author ID: {item.userId}</Text>
+                    <Modal
+                        visible = {this.state.selectedPost !== null}
+                        transparent = {true}
+                        animationType='slide'
+                    >
+                        <View>
+                            <View>
+                                <Text>{this.state.selectedPost?.body}</Text>
+                            </View>
+                        </View>
+                    </Modal>
+                </TouchableOpacity>
             </View>}
         />
     )
