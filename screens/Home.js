@@ -11,28 +11,33 @@ export default class Home extends Component {
     }
   render() {
     return (
+      <View style={{flex: 1}}>
         <FlatList 
             data = {this.state.posts}
             renderItem = {({item}) => <View style = {styles.wrapper}>
                 <TouchableOpacity style = {styles.title}
                     onPress = {() => this.setState({selectedPost: item})}
                 >
-                    {item.title}
+                    <Text style={styles.titleText}>{item.title}</Text>
                     <Text style = {styles.userId}>Author ID: {item.userId}</Text>
-                    <Modal
-                        visible = {this.state.selectedPost !== null}
-                        transparent = {true}
-                        animationType='slide'
-                    >
-                        <View>
-                            <View>
-                                <Text>{this.state.selectedPost?.body}</Text>
-                            </View>
-                        </View>
-                    </Modal>
                 </TouchableOpacity>
             </View>}
         />
+        <Modal
+            visible = {this.state.selectedPost !== null}
+            transparent = {true}
+            onRequestClose={() => this.setState({selectedPost: null})}
+        >
+            <View style={styles.modalContainer}>
+                <View style={styles.modalContent}>
+                    <Text style={styles.body}>{this.state.selectedPost?.body}</Text>
+                    <TouchableOpacity onPress={() => this.setState({selectedPost: null})}>
+                        <Text>Close</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>
+      </View>
     )
   }
   componentDidMount() {
@@ -44,19 +49,20 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
     wrapper: {
-        backgroundColor: "babyblue",
+        backgroundColor: "skyblue",
         margin: 10,
         padding: 10,
         borderRadius: 8,
         shadowColor: "blue",
-        shadowOffset: {width: 0, height: 2},
         shadowOpacity: 0.8,
         shadowRadius: 1,
     },
     title: {
+        marginBottom: 5,
+    },
+    titleText: {
         fontSize: 19,
         fontWeight: "bold",
-        marginBottom: 5,
     },
     body: {
         fontSize: 12,
@@ -65,5 +71,17 @@ const styles = StyleSheet.create({
     userId: {
         fontSize: 6,
         fontStyle: "italic",
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        width: '80%',
     }
 })
