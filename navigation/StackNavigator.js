@@ -6,25 +6,13 @@ import AllNews from "../screens/AllNews";
 const Stack = createStackNavigator();
 
 const HomeStackNavigator = ({ navigation }) => (
-  <Stack.Navigator
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: "#47daff",
-      },
-    }}
-  >
+  <Stack.Navigator>
     <Stack.Screen name="Home" component={Home} />
   </Stack.Navigator>
 );
 
 const AllNewsStackNavigator = ({ navigation }) => (
-  <Stack.Navigator
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: "#47daff",
-      },
-    }}
-  >
+  <Stack.Navigator>
     <Stack.Screen name="AllNews" component={AllNews} />
   </Stack.Navigator>
 );
