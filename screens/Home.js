@@ -13,13 +13,14 @@ export default class Home extends Component {
     return (
       <View style={{flex: 1}}>
         <FlatList 
-            data = {this.state.posts}
-            renderItem = {({item}) => <View style = {styles.wrapper}>
-                <TouchableOpacity style = {styles.title}
-                    onPress = {() => this.setState({selectedPost: item})}
+            data={this.state.posts}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({item}) => <View style={styles.wrapper}>
+                <TouchableOpacity style={styles.title}
+                    onPress={() => this.setState({selectedPost: item})}
                 >
                     <Text style={styles.titleText}>{item.title}</Text>
-                    <Text style = {styles.userId}>Author ID: {item.userId}</Text>
+                    <Text style={styles.userId}>Author ID: {item.userId}</Text>
                 </TouchableOpacity>
             </View>}
         />
