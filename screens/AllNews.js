@@ -34,7 +34,8 @@ export default class AllNews extends Component {
             <View style={styles.modalContainer}>
                 <View style={styles.modalContent}>
                     <Text style={styles.body}>{this.state.selectedPost?.body}</Text>
-                    <TouchableOpacity onPress={() => this.setState({selectedPost: null})}>
+                    <TouchableOpacity onPress={() => this.setState({selectedPost: null})}
+                        style = {{backgroundColor: "lightblue", padding: 10, borderRadius: 5, alignSelf: "center", marginTop: 10}}>
                         <Text>Close</Text>
                     </TouchableOpacity>
                 </View>
