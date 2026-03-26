@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, FlatList, Modal, TouchableOpacity} from 'react-native'
 
-export default class Home extends Component {
+export default class AllNews extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -12,8 +12,8 @@ export default class Home extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Text style = {{fontSize: 30, textAlign: "center", marginVertical: 5}}>Latest Posts</Text>
-        <Text style = {{fontSize: 16, textAlign: "center", marginVertical: 5}}>These are the latest news articles from our blog.</Text>      
+        <Text style = {{fontSize: 30, textAlign: "center", marginVertical: 5}}>All Posts</Text>
+        <Text style = {{fontSize: 16, textAlign: "center", marginVertical: 5}}>Find all the news from the history of our blog.</Text>  
         <FlatList 
             data={this.state.posts}
             keyExtractor={(item) => item.id.toString()}
@@ -46,10 +46,8 @@ export default class Home extends Component {
   componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/posts/')
       .then(response => response.json())
-      .then(json => {
-        const firstTenPosts = json.slice(0, 10);
-        
-        this.setState({ posts: firstTenPosts })})
+      .then(json => this.setState({ posts: Array.isArray(json) ? json : [] }))
+      .catch(() => this.setState({ posts: [] }))
   }
 }
 
